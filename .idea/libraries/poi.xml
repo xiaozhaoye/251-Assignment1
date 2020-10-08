@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="poi">
+    <CLASSES>
+      <root url="file://E:/Users/lenovo/poi" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://E:/Users/lenovo/poi" recursive="false" />
+  </library>
+</component>
