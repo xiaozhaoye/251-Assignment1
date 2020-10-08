@@ -237,7 +237,6 @@ public class Main extends Function {
                 ta.selectAll();  //文本区域全选
 
             }
-
         });
 
         mi7.addActionListener(new ActionListener() {

@@ -1,6 +1,5 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class test1 extends Function {
         File file=new File("src/main/TestNew.txt");
         ArrayList<String> L=OPENfunction(file);
         for(String i:L){
-            Assert.assertEquals("Hello World"+ "\r\n",i);
+            Assert.assertEquals("Hello  World"+ "\r\n",i);
         }
     }
     @Test
