@@ -26,7 +26,7 @@ public class Main extends Function {
         f.setMenuBar(menuBar);
         Toolkit toolKit = Toolkit.getDefaultToolkit(); //设置默认工具箱
         Clipboard clipboard = toolKit.getSystemClipboard();//调用文件工具箱下的系统剪贴板方法
-        Menu m1=new Menu("File");
+        Menu m1=new Menu("File");//设置菜单
         Menu m2=new Menu("Search");
         Menu m3=new Menu("View");
         Menu m4=new Menu("Help");
@@ -36,7 +36,7 @@ public class Main extends Function {
         menuBar.add(m3);
         menuBar.add(m4);
 
-        MenuItem mi1=new MenuItem("New");
+        MenuItem mi1=new MenuItem("New");//子菜单
         MenuItem mi2=new MenuItem("Open");
         MenuItem mi3=new MenuItem("Save");
         MenuItem mi4=new MenuItem("Search");
@@ -49,7 +49,7 @@ public class Main extends Function {
         MenuItem mi11=new MenuItem("About");
         MenuItem mi12=new MenuItem("Print");
 
-        m1.add(mi1);
+        m1.add(mi1);//添加子菜单
         m1.add(mi2);
         m1.add(mi3);
         m2.add(mi4);
@@ -62,9 +62,9 @@ public class Main extends Function {
         m4.add(mi11);
         m4.add(mi12);
 
-        final JTextArea ta=new JTextArea();
+        final JTextArea ta=new JTextArea();//文本框
         f.add(ta);
-        mi1.addActionListener(new ActionListener() {
+        mi1.addActionListener(new ActionListener() {//弹出新窗口
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setLocation(100,50);
@@ -76,7 +76,7 @@ public class Main extends Function {
 
         mi2.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {//打开电脑中的一个文件并写入文本框内
                 FileDialog fd=new FileDialog(f,"open",FileDialog.LOAD);
                 fd.setVisible(true);
                 String dirpath = fd.getDirectory();
@@ -98,7 +98,7 @@ public class Main extends Function {
                 }
             }
         });
-        mi3.addActionListener(new ActionListener() {
+        mi3.addActionListener(new ActionListener() {//将文本框内的内容保存成电脑的一个文件
             @Override
             public void actionPerformed(ActionEvent e) {
                 int n = JOptionPane.showConfirmDialog(null, "you want to save as a PDF file?", "",JOptionPane.YES_NO_OPTION);
@@ -111,7 +111,7 @@ public class Main extends Function {
                     return;
                 else
                     file = new File(dirpath, fileName);
-                if (n==1) {
+                if (n==1) {//保存成文本文件
                     try {
                         SAVEfunction(file,ta.getText());
 //                        BufferedWriter bufw = new BufferedWriter(new FileWriter(file));
@@ -121,17 +121,15 @@ public class Main extends Function {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                }else{
+                }else{//保存成PDF文件
                     try {
                         Document document = new Document();
                         String text = ta.getText();
                         // 2.建立一个书写器(Writer)与document对象关联，通过书写器(Writer)可以将文档写入到磁盘中。
                         // 创建 PdfWriter 对象 第一个参数是对文档对象的引用，第二个参数是文件的实际名称，在该名称中还会给出其输出路径。
                         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-//                        BaseFont fontChinese = BaseFont.createFont("C:/Windows/Fonts/STSONG.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-                        // 3.打开文档
+                      // 3.打开文档
                         document.open();
-//                        document.add(new Paragraph("你好，世界！", new Font(fontChinese, 12)));
                         // 4.添加一个内容段落
                         document.add(new Paragraph(text));
                         document.close();
@@ -143,15 +141,15 @@ public class Main extends Function {
                 }
             }
         });
-        mi4.addActionListener(new ActionListener() {
+        mi4.addActionListener(new ActionListener() {//搜素功能
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog findDialog=new JDialog();
+                JDialog findDialog=new JDialog();//设置搜索界面
                 Container con=findDialog.getContentPane();
                 con.setLayout(new FlowLayout(FlowLayout.LEFT));
                 JLabel findContentLabel=new JLabel("look for:");
                 final JTextField findText=new JTextField(15);
-                JButton findNextButton=new JButton("search");
+                JButton findNextButton=new JButton("search");//添加按钮
                 ButtonGroup bGroup=new ButtonGroup();
                 final JRadioButton upButton=new JRadioButton("up");
                 final JRadioButton downButton=new JRadioButton("down");
@@ -183,9 +181,9 @@ public class Main extends Function {
                 {
                     int k=0;
                     final String strA,strB;
-                    strA=ta.getText().toUpperCase();
+                    strA=ta.getText().toUpperCase();//不区分大小写
                     strB=findText.getText().toUpperCase();
-                    if(upButton.isSelected())
+                    if(upButton.isSelected())//向上查找
                     {
                        // SEARCHfunction1(strA,strB);
                         if(ta.getSelectedText()==null)
@@ -201,7 +199,7 @@ public class Main extends Function {
                         {   JOptionPane.showMessageDialog(null,"can't find！","",JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
-                    else if(downButton.isSelected())
+                    else if(downButton.isSelected())//向下查找
                     {
                      //   SEARCHfunction2(strA,strB);
                         if(ta.getSelectedText()==null)
@@ -222,114 +220,68 @@ public class Main extends Function {
             }
         });
 
-        mi5.addActionListener(new ActionListener() {
+        mi5.addActionListener(new ActionListener() {//退出全部界面
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
         mi6.addActionListener(new ActionListener() {
-
             @Override
-
             public void actionPerformed(ActionEvent e) {
-
                 ta.selectAll();  //文本区域全选
-
             }
         });
 
         mi7.addActionListener(new ActionListener() {
-
             @Override
-
             public void actionPerformed(ActionEvent e) {
-
                 String text = ta.getSelectedText();  //将得到的选择文本内容存入text中
-
                 StringSelection selection= new StringSelection(text);
-
                 clipboard.setContents(selection,null);//将得到的内容放入到剪切板中
-
             }
-
         });
 
         mi8.addActionListener(new ActionListener() {
-
             @Override
-
             public void actionPerformed(ActionEvent e) {
-
                 Transferable contents = clipboard.getContents(this);//设置剪切板中的内容存入可传输内容中
-
                 if(contents==null)  //如果内容为空
-
                     return;    //结束
-
                 String text;
-
                 text=""; //设置文本区域为空
-
                 try{
-
                     text = (String)contents.getTransferData(DataFlavor.stringFlavor);
-
                     // 检查内容是否是文本类型
-
                 }
-
                 catch(UnsupportedFlavorException ex){ }
-
                 catch(IOException ex){ }
-
                 ta.replaceRange(text,
-
                         ta.getSelectionStart(),ta.getSelectionEnd());
-
             }
-
         });
-
-
 
         mi9.addActionListener(new ActionListener() {
-
             @Override
-
             public void actionPerformed(ActionEvent e) {
-
                 String text = ta.getSelectedText(); //将得到的选择文本内容存入text中
-
                 StringSelection selection = new StringSelection(text);
-
                 clipboard.setContents(selection,null);//将得到的内容放入到剪切板中
-
                 ta.replaceRange("",ta.getSelectionStart(),//将原有的内容进行替换 替换为空
-
                         ta.getSelectionEnd()); //得到文本区域的值
-
             }
-
         });
 
-
-
-        mi10.addActionListener(new ActionListener() {
-
+        mi10.addActionListener(new ActionListener() {//在文本框内显示时间与日期
             @Override
-
             public void actionPerformed(ActionEvent e) {
-
                 ta.insert(new Date().toString(),ta.getCaretPosition());
-
             }
-
         });
 
         mi11.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {//弹出一个文本框显示相关信息
                 JOptionPane.showMessageDialog(null,
                         "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n"+
                                 " team members:        student number: \n"+
@@ -340,10 +292,10 @@ public class Main extends Function {
             }
         });
 
-        mi12.addActionListener(new ActionListener() {
+        mi12.addActionListener(new ActionListener() {//打印功能
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new JFileChooser();//选择电脑中的一个文件
                 int state = fileChooser.showOpenDialog(null);
                 if (state == fileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
@@ -371,5 +323,4 @@ public class Main extends Function {
         f.setVisible(true);
         f.addWindowListener(new MyWindowListener());
     }
-
 }
